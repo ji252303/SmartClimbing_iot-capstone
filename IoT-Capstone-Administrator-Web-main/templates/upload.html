@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Upload and Display Image</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"  />
+</head>
+<body>
+    <h1>Upload Image File</h1>
+    <form method="post" enctype="multipart/form-data" action="{{ url_for('upload_file') }}">
+        <input type="file" name="file" />
+        <label for="desired_label">Choose Label:</label>
+        <select id="desired_label" name="desired_label">
+            <option value="black">Black</option>
+            <option value="blue">Blue</option>
+            <option value="gray">Gray</option>
+            <option value="green">Green</option>
+            <option value="human">Human</option>
+            <option value="orange">Orange</option>
+            <option value="pink">Pink</option>
+            <option value="purple">Purple</option>
+            <option value="red">Red</option>
+            <option value="white">White</option>
+            <option value="yellow">Yellow</option>
+        </select>
+        <input type="submit" value="Upload" />
+    </form>
+    
+    {% if processed_image_path %}
+    <h2>Processed Image:</h2>
+    <img src="{{ url_for('uploaded_file', filename=processed_image_path.split('/')[-1]) }}" alt="Processed Image" style="max-width: 500px" />
+    {% endif %}
+
+    {% if graph_image_path %}
+    <h2>Graph Image:</h2>
+    <img src="{{ url_for('uploaded_file', filename=graph_image_path.split('/')[-1]) }}" alt="Graph Image" style="max-width: 500px" />
+    {% endif %}
+    
+    {% if message %}
+    <p>{{ message }}</p>
+    {% endif %}
+
+
+    {% if boxes %}
+    <h2>Boxes:</h2>
+    <form method="post" action="{{ url_for('add_uid_hold') }}">
+        {% for box in boxes %}
+        <div>
+            <p>Box {{ loop.index }} - X: {{ box.x }}, Y: {{ box.y }}, Width: {{ box.width }}, Height: {{ box.height }}, RX: {{ box.rx }}, RY: {{ box.ry }}, UID: {{ box.uid }}, Hold Numbering: {{ box.hold_numbering }}, Root: {{ root }}</p>
+            <input type="hidden" name="box_index" value="{{ loop.index0 }}" />
+            <label for="uid_{{ loop.index0 }}">UID:</label>
+            <input type="text" id="uid_{{ loop.index0 }}" name="uids" value="{{ box.uid }}" />
+            <label for="hold_{{ loop.index0 }}">Hold Numbering:</label>
+            <input type="text" id="hold_{{ loop.index0 }}" name="holds" value="{{ box.hold_numbering }}" />
+        </div>
+        {% endfor %}
+        <label for="root">Root:</label>
+        <input type="text" id="root" name="root" value="{{ root }}" />
+        <input type="submit" value="Add UID and Hold Numbering" />
+    </form>
+    {% endif %}
+</body>
+</html>
+
+

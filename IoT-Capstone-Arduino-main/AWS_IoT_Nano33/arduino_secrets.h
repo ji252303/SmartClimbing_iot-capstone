@@ -1,0 +1,26 @@
+// Fill in  your WiFi networks SSID and password
+#define SECRET_SSID "gahyun"
+#define SECRET_PASS "20001231"
+
+// Fill in the hostname of your AWS IoT broker
+#define SECRET_BROKER "ab7t0o2jst60a-ats.iot.ap-northeast-2.amazonaws.com"
+
+// Fill in the boards public certificate
+const char SECRET_CERTIFICATE[] = R"(
+-----BEGIN CERTIFICATE-----
+MIICizCCAXOgAwIBAgIUDYycSWEF6HFYeLevveipEjDB8cowDQYJKoZIhvcNAQEL
+BQAwTTFLMEkGA1UECwxCQW1hem9uIFdlYiBTZXJ2aWNlcyBPPUFtYXpvbi5jb20g
+SW5jLiBMPVNlYXR0bGUgU1Q9V2FzaGluZ3RvbiBDPVVTMB4XDTI0MDQxMDA2NTk1
+NloXDTQ5MTIzMTIzNTk1OVowGzEZMBcGA1UEAxMQQXJkdWlub05hbm8zM0lvVDBZ
+MBMGByqGSM49AgEGCCqGSM49AwEHA0IABPtoQlJv2WQSEp6DtIorGYwPVPWVCVts
+i6U9i2PShu5U4JZbOxYbFqZXwByasjDz6tEXXbNx9HuhysVNbbA1uyijYDBeMB8G
+A1UdIwQYMBaAFCmbytZChZhjHQnfv2jEx5PODNikMB0GA1UdDgQWBBRg8nJmbdfW
+C2omk+Ntg6FezJmhjTAMBgNVHRMBAf8EAjAAMA4GA1UdDwEB/wQEAwIHgDANBgkq
+hkiG9w0BAQsFAAOCAQEAQEtK7iLWYWbxp0A0H4fsNdK/OYTLlncWiYlr+v+n/rMM
+y3beIuKWGnqWsm8/p7BrgIfQpYnGsD6Vlg459BbjNCi66MiaTpoa9DKmltQdzFrO
+HJyiu1Ly1a/fXwk1QsOcTnwBlokkB9Cd0iovz3wdn8MBA9xj33XpjuSzrpDeYMAK
+NRO+dUa3Jd3z8HQAUc7GtPyqB6ETIlKPDXUyetr4Kl7FcpxOb5xWzHk+6/HPRew8
+QSeXIwHBq7dyi7F8yn+XIcRMnLb6aHvC5FX5V/+Hu4pjgf4qD98u3dG0lM+09xv/
+JS/un2ULT81l392e8lxqHnsbEHQSe9Zyla91EqR2Kw==
+-----END CERTIFICATE-----
+)";

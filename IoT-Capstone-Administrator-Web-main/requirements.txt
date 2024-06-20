@@ -1,0 +1,10 @@
+flask
+os
+ultralytics
+opencv-python
+numpy
+PIL
+matplotlib
+requests
+boto3
+botocore
