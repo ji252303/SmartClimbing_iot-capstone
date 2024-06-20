@@ -66,7 +66,7 @@
 
 ## 기능시연 유튜브 url
 
-[![시연 영상](https://img.youtu.be/PIoj3h1rc8I/0.jpg)](https://youtu.be/PIoj3h1rc8I)
+[시연 영상](https://youtu.be/PIoj3h1rc8I)
 
 
 
