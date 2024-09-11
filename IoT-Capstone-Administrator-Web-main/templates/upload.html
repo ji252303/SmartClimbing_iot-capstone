@@ -46,7 +46,7 @@
     <form method="post" action="{{ url_for('add_uid_hold') }}">
         {% for box in boxes %}
         <div>
-            <p>Box {{ loop.index }} - X: {{ box.x }}, Y: {{ box.y }}, Width: {{ box.width }}, Height: {{ box.height }}, RX: {{ box.rx }}, RY: {{ box.ry }}, UID: {{ box.uid }}, Hold Numbering: {{ box.hold_numbering }}, Root: {{ root }}</p>
+            <p>Box ID: {{ box.box_id }} - X: {{ box.x }}, Y: {{ box.y }}, Width: {{ box.width }}, Height: {{ box.height }}, RX: {{ box.rx }}, RY: {{ box.ry }}, UID: {{ box.uid }}, Hold Numbering: {{ box.hold_numbering }}, Root: {{ root }}</p>
             <input type="hidden" name="box_index" value="{{ loop.index0 }}" />
             <label for="uid_{{ loop.index0 }}">UID:</label>
             <input type="text" id="uid_{{ loop.index0 }}" name="uids" value="{{ box.uid }}" />

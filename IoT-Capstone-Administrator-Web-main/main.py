@@ -81,7 +81,7 @@ def upload_file():
             desired_label = request.form.get('desired_label')
             image = cv2.imread(file_path)
             processed_image_path, graph_image_path, boxes = process_image(image, desired_label)
-            boxes_data = [{'x': box[0], 'y': box[1], 'width': box[2], 'height': box[3], 'rx': np.rad2deg(box[2]), 'ry': np.rad2deg(box[3]), 'uid': ''} for box in boxes]
+            boxes_data = [{'box_id': i + 1, 'x': box[0], 'y': box[1], 'width': box[2], 'height': box[3], 'rx': np.rad2deg(box[2]), 'ry': np.rad2deg(box[3]), 'uid': ''} for i, (box, label) in enumerate(zip(boxes, labels))]
             
             return render_template('upload.html', message='Upload and processing successful.', processed_image_path=processed_image_path, graph_image_path=graph_image_path, labels=labels, boxes=boxes_data)
         else:
@@ -159,6 +159,7 @@ def process_image(image, desired_label):
     results = model.predict(source=image, save=True, imgsz=416, conf=0.5)
 
     boxes = []
+    box_id = 1
     for result in results:
         result_boxes = result.boxes
         result_names = result.names
@@ -170,9 +171,10 @@ def process_image(image, desired_label):
             # 원하는 레이블만 처리
             if label == desired_label:
                 cv2.rectangle(image, (x1, y1), (x2, y2), (255, 0, 0), 2)
-                cv2.putText(image, label, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
+                cv2.putText(image, f"Box {box_id}", (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 0, 255), 2)
 
                 boxes.append([x1, y1, x2, y2, label_idx])
+                box_id += 1
 
     process_bounding_boxes(image, boxes, result_names)
 
