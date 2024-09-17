@@ -17,6 +17,8 @@ labels = ["black", "blue", "gray", "green", "human", "orange", "pink", "purple",
 boxes_data = []
 root = ""
 bucket_name = 'imagebucketfornano'
+file_obj_key_name = 'images/P_1.png'
+file_name = './uploads/grapg.png'
 
 
 # HTTP 요청을 보낼 URL
@@ -117,6 +119,26 @@ def send_data_to_api(boxes, root):
     except requests.exceptions.RequestException as e:
         print(f"Error sending data to API: {e}")
         return f"Failed to send data to API: {e} - {response.text}"
+try:
+    # AWS 자격 증명 설정
+    s3 = boto3.client(
+        's3',
+        region_name='',
+        aws_access_key_id='',
+        aws_secret_access_key=''
+    )
+
+    # 파일 업로드 요청 생성
+    with open(file_name, 'rb') as f:
+        s3.upload_fileobj(f, bucket_name, file_obj_key_name)
+
+    print("Upload complete.")
+
+except botocore.exceptions.ClientError as e:
+    if e.response['Error']['Code'] == "404":
+        print("The object does not exist.")
+    else:
+        raise
 
 
 
@@ -131,20 +153,6 @@ def add_uid_hold():
         if 0 <= i < len(boxes_data):
             boxes_data[i]['uid'] = uid
             boxes_data[i]['hold_numbering'] = hold
-
-    try:    
-
-        # 파일 업로드 요청 생성
-        with open(file_name, 'rb') as f:
-            s3.upload_fileobj(f, bucket_name, file_obj_key_name)
-
-        print("Upload complete.")
-
-    except botocore.exceptions.ClientError as e:
-        if e.response['Error']['Code'] == "404":
-            print("The object does not exist.")
-        else:
-            raise
 
     message = send_data_to_api(boxes_data, root)
 
